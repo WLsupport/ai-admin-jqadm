@@ -96,14 +96,16 @@ $enc = $this->encoder();
 
 							<div class="form-group row mandatory">
 								<div class="col-sm-12">
-									<textarea is="html-editor" class="form-control item-content" required="required"
+									<input type="hidden" v-bind:value="item['text.content']"
+										v-bind:name="`<?= $enc->js( $this->formparam( array( 'text', '_idx_', 'text.content' ) ) ) ?>`.replace('_idx_', idx)" />
+									<textarea is="ckeditor" class="form-control item-content" required="required"
+										tabindex="<?= $enc->attr( $this->get( 'tabindex' ) ) ?>"
+										dir="rtl"
 										v-bind:key="idx"
 										v-bind:id="'cke-' + idx"
+										v-bind:editor="ClassicEditor"
 										v-bind:config="Aimeos.ckeditor"
-										v-bind:value="item['text.content']"
-										v-bind:name="`<?= $enc->js( $this->formparam( array( 'text', '_idx_', 'text.content' ) ) ) ?>`.replace('_idx_', idx)"
-										v-bind:readonly="item['text.siteid'] != siteid"
-										v-bind:tabindex="`<?= $enc->js( $this->get( 'tabindex' ) ) ?>`"
+										v-bind:disabled="item['text.siteid'] != siteid"
 										v-model="item['text.content']"
 									></textarea>
 								</div>

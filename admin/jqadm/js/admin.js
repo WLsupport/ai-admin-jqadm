@@ -27,41 +27,20 @@ Aimeos = {
 	components: {},
 
 	ckeditor: {
-		on: {
-			instanceReady: function() {
-				this.dataProcessor.writer.setRules( 'br', {
-					indent: false,
-					breakBeforeOpen: false,
-					breakAfterOpen: false,
-					breakBeforeClose: false,
-					breakAfterClose: false
-				});
-				this.dataProcessor.writer.setRules( 'p', {
-					indent: false,
-					breakBeforeOpen: false,
-					breakAfterOpen: false,
-					breakBeforeClose: false,
-					breakAfterClose: false
-				});
-			}
-		},
-		autoParagraph: false,
-		contentsLangDirection: 'auto',
-		entities: false,
-		extraAllowedContent: 'div(*);span(*);p(*);',
-		extraPlugins: 'divarea',
-		initialData: this.value,
-		protectedSource: [/\n/g],
-		readOnly: this.readonly,
-		removeButtons: 'Underline,Subscript,Superscript',
-		toolbar: [
-			{ name: 'clipboard', items: [ 'Undo', 'Redo' ] },
-			{ name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
-			{ name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat' ] },
-			{ name: 'insert', items: [ 'SpecialChar' ] },
-			{ name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
-			{ name: 'document', items: [ 'Source' ] }
-		]
+//		autoParagraph: false,
+//		extraAllowedContent: 'div(*);span(*);p(*);',
+		language: $('html').attr('lang'),
+		toolbar: {
+			items: [
+				'undo', 'redo', '|',
+				'link', '|',
+				'bold', 'italic', '|',
+				'bulletedList', 'numberedList', '|',
+				'outdent', 'indent', '|',
+				'blockQuote', '|',
+				'insertTable', 'mediaEmbed', '|',
+			]
+		}
 	},
 
 	flatpickr : {
@@ -1137,6 +1116,7 @@ $(function() {
 	Vue.component('l-map', window.Vue2Leaflet.LMap);
 	Vue.component('l-marker', window.Vue2Leaflet.LMarker);
 	Vue.component('l-tile-layer', window.Vue2Leaflet.LTileLayer);
+	Vue.use(CKEditor);
 
 	Aimeos.lazy('.vue', function(el) {
 		const target = el || '.vue';

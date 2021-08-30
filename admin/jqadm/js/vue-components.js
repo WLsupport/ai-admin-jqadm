@@ -228,50 +228,6 @@ Vue.component('confirm-delete', {
 
 
 
-Vue.component('html-editor', {
-	template: '\
-		<textarea rows="6" class="form-control htmleditor" v-bind:id="id" v-bind:name="name" v-bind:value="value"\
-			v-bind:placeholder="placeholder" v-bind:readonly="readonly" v-bind:tabindex="tabindex">\
-		</textarea>',
-	props: ['config', 'id', 'name', 'value', 'placeholder', 'readonly', 'tabindex'],
-
-	beforeDestroy: function() {
-		if(this.instance) {
-			this.instance.destroy();
-			this.instance = null;
-		}
-	},
-
-	data: function() {
-		return {
-			instance: null,
-			text: null
-		};
-	},
-
-	methods: {
-		change: function() {
-			this.text = this.instance.getData();
-			this.$emit('input', this.text);
-		},
-	},
-
-	mounted: function() {
-		this.instance = CKEDITOR.replace(this.id, this.config);
-		this.instance.on('change', this.change);
-	},
-
-	watch: {
-		value: function(val, oldval) {
-			if(val !== oldval && val !== this.text ) {
-				this.instance.setData(val);
-			}
-		}
-	}
-});
-
-
-
 Vue.component('input-map', {
 	template: '\
 		<div> \
